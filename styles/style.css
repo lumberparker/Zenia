@@ -1,0 +1,36 @@
+/* Main CSS file with BEM methodology */
+/* Imports for each block */
+@import url('./blocks/reset.css');
+@import url('./blocks/variables.css');
+@import url('./blocks/header.css');
+@import url('./blocks/hero.css');
+@import url('./blocks/services.css');
+@import url('./blocks/about.css');
+@import url('./blocks/contact.css');
+@import url('./blocks/footer.css');
+@import url('./blocks/responsive.css');
+@import url('./blocks/utilities.css');
+
+/* Main layout styles */
+.main {
+    min-height: calc(100vh - 80px);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .footer {
+        display: none;
+    }
+}
