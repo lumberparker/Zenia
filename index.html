@@ -131,20 +131,20 @@ Contamos con ingenieros, así como profesionales del derecho, desarrollar e impl
                         <div class="contact__form-row">
                             <div class="contact__form-group">
                                 <label class="contact__form-label">Nombre</label>
-                                <input type="text" class="contact__form-input" placeholder="Tu nombre">
+                                <input type="text" name="nombre" class="contact__form-input" placeholder="Tu nombre" required>
                             </div>
                             <div class="contact__form-group">
                                 <label class="contact__form-label">Email</label>
-                                <input type="email" class="contact__form-input" placeholder="tu@email.com">
+                                <input type="email" name="email" class="contact__form-input" placeholder="tu@email.com" required>
                             </div>
                         </div>
                         <div class="contact__form-group">
                             <label class="contact__form-label">Asunto</label>
-                            <input type="text" class="contact__form-input" placeholder="¿En qué podemos ayudarte?">
+                            <input type="text" name="asunto" class="contact__form-input" placeholder="¿En qué podemos ayudarte?">
                         </div>
                         <div class="contact__form-group">
                             <label class="contact__form-label">Mensaje</label>
-                            <textarea class="contact__form-textarea" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <textarea name="mensaje" class="contact__form-textarea" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
                         </div>
                         <button type="submit" class="contact__form-button">
                             <span>Enviar Mensaje</span>
