@@ -84,11 +84,12 @@
 
 .about__visual {
     position: relative;
+    background-color: white;
 }
 
 .about__image {
     aspect-ratio: 1;
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-xl);
     display: flex;
     align-items: center;
@@ -102,10 +103,13 @@
     height: 100%;
     object-fit: cover;
 }
-
+.about__logo-img{
+    width: 20vw;
+}
 .about__image-content {
     text-align: center;
     padding: var(--spacing-xl);
+    background-color: white;
 }
 
 .about__image-icon {
