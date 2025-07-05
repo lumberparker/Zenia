@@ -33,20 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollTop = scrollTop;
     });
 
-    // Contact form handling
-    const contactForm = document.querySelector('.contact__form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            // Show loading state
-            const button = this.querySelector('.contact__form-button');
-            const originalText = button.innerHTML;
-            button.innerHTML = 'Enviando...';
-            button.disabled = true;
-            
-            // Let Netlify handle the submission
-            // The form will redirect naturally after submission
-        });
-    }
+    // Note: Contact form is handled entirely by Netlify
+    // No JavaScript interference needed
 
     // Add animation on scroll
     const observerOptions = {
