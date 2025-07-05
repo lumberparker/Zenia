@@ -37,30 +37,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact__form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             // Get form data
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
             // Simple validation
-            if (!data.name || !data.email || !data.message) {
+            if (!data.nombre || !data.email || !data.mensaje) {
+                e.preventDefault();
                 alert('Por favor, completa todos los campos requeridos.');
                 return;
             }
             
-            // Simulate form submission
+            // Let Netlify handle the submission
+            // Show loading state
             const button = this.querySelector('.contact__form-button');
             const originalText = button.innerHTML;
             button.innerHTML = 'Enviando...';
             button.disabled = true;
-            
-            setTimeout(() => {
-                alert('¡Mensaje enviado correctamente! Te contactaremos pronto.');
-                this.reset();
-                button.innerHTML = originalText;
-                button.disabled = false;
-            }, 2000);
         });
     }
 
