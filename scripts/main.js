@@ -37,23 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact__form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Simple validation
-            if (!data.nombre || !data.email || !data.mensaje) {
-                e.preventDefault();
-                alert('Por favor, completa todos los campos requeridos.');
-                return;
-            }
-            
-            // Let Netlify handle the submission
             // Show loading state
             const button = this.querySelector('.contact__form-button');
             const originalText = button.innerHTML;
             button.innerHTML = 'Enviando...';
             button.disabled = true;
+            
+            // Let Netlify handle the submission
+            // The form will redirect naturally after submission
         });
     }
 
