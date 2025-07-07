@@ -38,7 +38,8 @@
 
 .hero__container {
     width: 500px;
-    height: 500px;
+    height: auto;
+    min-height: 350px;
     margin: 0 auto;
     position: relative;
     z-index: 3;
@@ -66,12 +67,18 @@
     white-space: nowrap;
 }
 
+.hero__title-brand {
+    background: linear-gradient(80deg, rgb(177, 194, 254), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .hero__subtitle {
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     margin-bottom: var(--spacing-md);
     opacity: 0.9;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
     text-align: center;
     line-height: 1.4;
 }
@@ -104,6 +111,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .hero__button::before {
@@ -168,7 +176,8 @@
     .hero__container {
         width: 90vw;
         max-width: 350px;
-        height: 350px;
+        height: auto;
+        min-height: 280px;
         padding: var(--spacing-lg);
         border-radius: 25px;
         margin: 0 auto;
@@ -190,7 +199,8 @@
     .hero__container {
         width: 95vw;
         max-width: 300px;
-        height: 300px;
+        height: auto;
+        min-height: 240px;
         padding: var(--spacing-md);
         border-radius: 20px;
     }
@@ -216,7 +226,8 @@
     .hero__container {
         width: 98vw;
         max-width: 280px;
-        height: 280px;
+        height: auto;
+        min-height: 220px;
         padding: var(--spacing-sm);
         border-radius: 15px;
     }
