@@ -57,21 +57,16 @@
     flex-shrink: 0;
 }
 
-.hero__title {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: bold;
-    margin-bottom: var(--spacing-sm);
-    line-height: 1.2;
-    color: white;
-    text-align: center;
-    white-space: nowrap;
+.hero__logo {
+    width: clamp(180px, 40vw, 300px);
+    height: auto;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    transition: transform var(--transition-normal);
 }
 
-.hero__title-brand {
-    background: linear-gradient(80deg, rgb(177, 194, 254), var(--primary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.hero__logo:hover {
+    transform: scale(1.05);
 }
 
 .hero__subtitle {
