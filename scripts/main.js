@@ -278,11 +278,106 @@ window.addEventListener('scroll', throttle(function() {
             button.addEventListener('click', function(e) {
                 e.stopPropagation();
                 pillar.classList.toggle('flipped');
+                
+                // Check scroll indicators when card flips
+                setTimeout(() => {
+                    checkPillarScrollIndicators(pillar);
+                }, 600); // After flip animation
             });
         }
         
         // Also allow clicking anywhere on the card to flip
         pillar.addEventListener('click', function() {
             pillar.classList.toggle('flipped');
+            
+            // Check scroll indicators when card flips
+            setTimeout(() => {
+                checkPillarScrollIndicators(pillar);
+            }, 600); // After flip animation
         });
+    });
+
+    // Pillar scroll indicator functionality
+    function checkPillarScrollIndicators(pillar) {
+        const pillarBack = pillar.querySelector('.services__pillar-back');
+        const scrollIndicator = pillar.querySelector('.services__pillar-scroll-indicator');
+        
+        if (!pillarBack || !scrollIndicator) {
+            console.log('Missing elements:', { pillarBack: !!pillarBack, scrollIndicator: !!scrollIndicator });
+            return;
+        }
+        
+        // Wait a bit for the flip animation and content to settle
+        setTimeout(() => {
+            // Force a reflow to get accurate measurements
+            pillarBack.offsetHeight;
+            
+            // Check if content is scrollable
+            const isScrollable = pillarBack.scrollHeight > pillarBack.clientHeight + 5; // 5px tolerance
+            
+            console.log('Scroll check:', {
+                scrollHeight: pillarBack.scrollHeight,
+                clientHeight: pillarBack.clientHeight,
+                isScrollable: isScrollable,
+                isFlipped: pillar.classList.contains('flipped')
+            });
+            
+            if (isScrollable && pillar.classList.contains('flipped')) {
+                scrollIndicator.classList.add('visible');
+                scrollIndicator.classList.remove('hidden');
+                
+                // Handle scroll events on the pillar back
+                const handlePillarScroll = () => {
+                    const scrollTop = pillarBack.scrollTop;
+                    const scrollHeight = pillarBack.scrollHeight;
+                    const clientHeight = pillarBack.clientHeight;
+                    
+                    // Hide indicator when at bottom (within 10px)
+                    if (scrollTop + clientHeight >= scrollHeight - 10) {
+                        scrollIndicator.classList.add('hidden');
+                    } else {
+                        scrollIndicator.classList.remove('hidden');
+                    }
+                };
+                
+                // Remove any existing listeners to avoid duplicates
+                pillarBack.removeEventListener('scroll', handlePillarScroll);
+                // Add scroll listener
+                pillarBack.addEventListener('scroll', handlePillarScroll);
+                
+                // Initial check
+                handlePillarScroll();
+                
+                // Handle click on scroll indicator
+                const handleIndicatorClick = (e) => {
+                    e.stopPropagation();
+                    pillarBack.scrollBy({
+                        top: 100,
+                        behavior: 'smooth'
+                    });
+                };
+                
+                // Remove any existing click listeners
+                scrollIndicator.removeEventListener('click', handleIndicatorClick);
+                scrollIndicator.addEventListener('click', handleIndicatorClick);
+            } else {
+                scrollIndicator.classList.remove('visible');
+                scrollIndicator.classList.remove('hidden');
+            }
+        }, 100); // Small delay to ensure content is rendered
+    }
+
+    // Check all pillar scroll indicators on page load and when content changes
+    function checkAllPillarScrollIndicators() {
+        pillars.forEach(pillar => {
+            checkPillarScrollIndicators(pillar);
+        });
+    }
+
+    // Initial check on page load
+    setTimeout(checkAllPillarScrollIndicators, 1000);
+    
+    // Check again when window resizes
+    window.addEventListener('resize', () => {
+        setTimeout(checkAllPillarScrollIndicators, 100);
     });

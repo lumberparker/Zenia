@@ -259,6 +259,7 @@
     padding: var(--spacing-lg);
     scrollbar-width: thin;
     scrollbar-color: var(--primary-color) transparent;
+    position: relative;
 }
 
 .services__pillar-back::-webkit-scrollbar {
@@ -272,6 +273,144 @@
 .services__pillar-back::-webkit-scrollbar-thumb {
     background-color: var(--primary-color);
     border-radius: 4px;
+}
+
+/* Pillar Scroll Indicator */
+.services__pillar-scroll-indicator {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: pillarBounce 2s infinite;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.services__pillar-scroll-indicator.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.services__pillar-scroll-indicator:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 12px 35px rgba(255, 255, 255, 0.2);
+}
+
+.services__pillar-scroll-indicator::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -5px;
+}
+
+.services__pillar-scroll-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 1px;
+    margin-left: -4px;
+    z-index: 1;
+}
+
+/* Hide pillar scroll indicator when at bottom */
+.services__pillar-scroll-indicator.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Pillar bounce animation - same as main scroll indicator */
+@keyframes pillarBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Responsive adjustments for pillar scroll indicators */
+@media (max-width: 768px) {
+    .services__pillar-scroll-indicator {
+        width: 1.8rem;
+        height: 1.8rem;
+        bottom: 0.8rem;
+        right: 0.8rem;
+    }
+    
+    .services__pillar-scroll-indicator::after {
+        width: 8px;
+        height: 8px;
+        margin-top: -6px;
+        margin-left: -4px;
+    }
+    
+    .services__pillar-scroll-indicator::before {
+        width: 6px;
+        height: 6px;
+        margin-top: 1px;
+        margin-left: -3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .services__pillar-scroll-indicator {
+        width: 1.5rem;
+        height: 1.5rem;
+        bottom: 0.6rem;
+        right: 0.6rem;
+    }
+    
+    .services__pillar-scroll-indicator::after {
+        width: 6px;
+        height: 6px;
+        margin-top: -4px;
+        margin-left: -3px;
+    }
+    
+    .services__pillar-scroll-indicator::before {
+        width: 5px;
+        height: 5px;
+        margin-top: 1px;
+        margin-left: -2.5px;
+    }
 }
 
 .services__pillar-details {
@@ -290,14 +429,14 @@
     line-height: 1.4;
     counter-increment: pillar-counter;
     position: relative;
-    padding-left: var(--spacing-lg);
+    padding-left: 2.5rem;
 }
 
 .services__pillar-details li::before {
     content: counter(pillar-counter);
     position: absolute;
     left: 0;
-    top: var(--spacing-sm);
+    top: calc(var(--spacing-sm) + 0.1rem);
     background: var(--primary-color);
     color: white;
     width: 1.5rem;
@@ -360,7 +499,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    padding-left: var(--spacing-md);
+    padding-left: 2rem;
 }
 
 .services__pillar-sublist li {
@@ -379,9 +518,11 @@
 .services__pillar-sublist li::before {
     content: "•";
     position: absolute;
-    left: -var(--spacing-md);
+    left: -1.5rem;
+    top: calc(var(--spacing-xs) + 0.1rem);
     color: var(--primary-color);
     font-weight: bold;
+    font-size: 1rem;
 }
 
 /* Proceso de implementación */
