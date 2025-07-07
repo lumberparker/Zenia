@@ -551,11 +551,31 @@
     border-radius: var(--radius-lg);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform var(--transition-normal);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.services__process-step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(45, 199, 187, 0.1), transparent);
+    transition: left 0.6s ease;
 }
 
 .services__process-step:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(45, 199, 187, 0.2);
+    border: 1px solid rgba(45, 199, 187, 0.3);
+}
+
+.services__process-step:hover::before {
+    left: 100%;
 }
 
 .services__process-number {
@@ -570,12 +590,27 @@
     font-weight: bold;
     font-size: 1.25rem;
     margin: 0 auto var(--spacing-md);
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 2;
+}
+
+.services__process-step:hover .services__process-number {
+    transform: scale(1.1) rotate(360deg);
+    box-shadow: 0 4px 12px rgba(45, 199, 187, 0.4);
 }
 
 .services__process-step-title {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-color);
+    transition: color var(--transition-normal);
+    position: relative;
+    z-index: 2;
+}
+
+.services__process-step:hover .services__process-step-title {
+    color: var(--primary-color);
 }
 
 /* Beneficios */
@@ -605,12 +640,34 @@
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-md);
-    transition: transform var(--transition-normal);
+    transition: all var(--transition-normal);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.services__benefit::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
 }
 
 .services__benefit:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(45, 199, 187, 0.3);
+}
+
+.services__benefit:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .services__benefit-icon {
@@ -622,12 +679,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 2;
+}
+
+.services__benefit:hover .services__benefit-icon {
+    transform: scale(1.2) rotateY(360deg);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .services__benefit-text {
     font-size: 1.125rem;
     font-weight: 600;
     text-align: center;
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 2;
+}
+
+.services__benefit:hover .services__benefit-text {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Design */
