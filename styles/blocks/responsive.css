@@ -1,9 +1,5 @@
 /* Responsive Design */
 @media (max-width: 768px) {
-    .header__nav {
-        display: none;
-    }
-    
     .hero__actions {
         flex-direction: column;
     }
@@ -55,16 +51,16 @@
     }
     
     .header__container {
-        padding: var(--spacing-sm) var(--spacing-md);
+        padding: var(--spacing-xs) var(--spacing-sm);
     }
     
     .hero {
-        padding: var(--spacing-2xl) var(--spacing-md);
+        padding: var(--spacing-2xl) var(--spacing-sm);
     }
     
     .services,
     .about,
     .contact {
-        padding: var(--spacing-2xl) var(--spacing-md);
+        padding: var(--spacing-2xl) var(--spacing-sm);
     }
 }

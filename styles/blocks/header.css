@@ -1,21 +1,64 @@
 /* Header Block */
 .header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100vw;
+    z-index: 9999;
     background-color: var(--background-color);
     box-shadow: var(--shadow-md);
     border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-    transition: transform var(--transition-normal);
+    transition: all var(--transition-normal);
+    will-change: transform, opacity;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 70px;
+}
+
+.header.mobile-menu-open {
+    height: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header--scrolled {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
 }
 
 .header__container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: var(--spacing-md) var(--spacing-lg);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+}
+
+.header.mobile-menu-open .header__container {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+/* Keep the top bar (logo, cta, hamburger) in a row when menu is open */
+.header__top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+    min-height: 70px;
 }
 
 .header__brand {
@@ -25,8 +68,8 @@
 }
 
 .header__logo {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     background-color: var(--primary-color);
     color: white;
     border-radius: var(--radius-md);
@@ -34,11 +77,11 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 .header__logo-img {
-    height: 2.5rem;
+    height: 1.5rem;
     width: auto;
     object-fit: contain;
 }
@@ -47,6 +90,7 @@
     font-size: 1.25rem;
     font-weight: bold;
     color: var(--text-color);
+    white-space: nowrap;
 }
 
 .header__nav {
@@ -65,6 +109,12 @@
     opacity: 0.75;
 }
 
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
 .header__cta {
     background-color: var(--primary-color);
     color: white;
@@ -74,9 +124,334 @@
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-normal);
+    text-decoration: none;
+}
+
+.header--scrolled .header__cta {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    color: black;
 }
 
 .header__cta:hover {
     opacity: 0.9;
     transform: translateY(-1px);
+}
+
+.header--scrolled .header__cta:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 12px 35px rgba(255, 255, 255, 0.2);
+}
+
+.header__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10000;
+    position: relative;
+}
+
+.header__hamburger-line {
+    width: 1.5rem;
+    height: 2px;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+    margin: 2px 0;
+}
+
+.header.mobile-menu-open .header__hamburger-line {
+    background-color: var(--text-color);
+}
+
+.header__hamburger.active .header__hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.header__hamburger.active .header__hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.header__hamburger.active .header__hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile Navigation */
+.header__mobile-nav {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) 0 var(--spacing-lg) 0;
+    margin-top: var(--spacing-sm);
+    width: 100%;
+    align-self: center;
+}
+
+.header.mobile-menu-open .header__mobile-nav {
+    display: flex;
+}
+
+.header__mobile-link {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 160px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    display: block;
+    text-decoration: none;
+    margin: var(--spacing-xs) 0;
+}
+
+.header__mobile-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 12px 35px rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+}
+
+/* Scroll Down Indicator */
+.scroll-indicator {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: bounce 2s infinite;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.scroll-indicator:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 12px 35px rgba(255, 255, 255, 0.2);
+}
+
+.scroll-indicator::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.scroll-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 6px;
+    z-index: 1;
+}
+
+/* Hide scroll indicator when scrolled past hero section */
+.scroll-indicator.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-8px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-4px);
+    }
+}
+
+/* Responsive adjustments for scroll indicator */
+@media (max-width: 768px) {
+    .scroll-indicator {
+        bottom: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    .scroll-indicator::after {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .scroll-indicator::before {
+        width: 7px;
+        height: 7px;
+        top: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .scroll-indicator {
+        bottom: 1rem;
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .scroll-indicator::after {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .scroll-indicator::before {
+        width: 6px;
+        height: 6px;
+        top: 4px;
+    }
+}
+
+/* Responsive Header Styles */
+@media (max-width: 768px) {
+    .header__container {
+        width: 100%;
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-width: 0;
+    }
+    
+    .header__brand {
+        flex-shrink: 0;
+        min-width: 0;
+    }
+    
+    .header__actions {
+        flex-shrink: 0;
+        min-width: 0;
+    }
+    
+    /* Hide desktop navigation */
+    .header__nav {
+        display: none;
+    }
+    
+    .header__hamburger {
+        display: flex;
+    }
+    
+    .header__logo {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+    
+    .header__logo-img {
+        height: 2rem;
+    }
+    
+    .header__title {
+        font-size: 1rem;
+    }
+    
+    .header__cta {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header__container {
+        width: 100%;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .header__brand {
+        gap: var(--spacing-sm);
+        flex-shrink: 0;
+    }
+    
+    .header__mobile-nav {
+        padding: var(--spacing-sm) 0 var(--spacing-md) 0;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .header__top-bar {
+        min-height: 60px;
+    }
+    
+    .header__logo {
+        width: 1.8rem;
+        height: 1.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .header__logo-img {
+        height: 1.3rem;
+    }
+    
+    .header__title {
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .header__cta {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    
+    .header__hamburger {
+        width: 1.5rem;
+        height: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    .header__hamburger-line {
+        width: 1.2rem;
+    }
 }

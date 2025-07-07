@@ -10,4 +10,19 @@ body {
     color: var(--text-color);
     background-color: var(--background-color);
     line-height: 1.6;
+    padding-top: 0; /* Remove padding so hero touches header */
+}
+
+/* Animation utilities */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Ensure smooth animations */
+.fade-in-element {
+    will-change: transform, opacity;
 }
