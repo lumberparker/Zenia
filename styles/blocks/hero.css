@@ -87,6 +87,7 @@
 }
 
 .hero__button {
+    display: none;
     padding: var(--spacing-md) var(--spacing-xl);
     border-radius: var(--radius-md);
     font-size: 1.125rem;
