@@ -75,6 +75,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-normal);
+    display: none;
 }
 
 .about__button:hover {
